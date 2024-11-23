@@ -7,7 +7,7 @@
  const pokemonNames = ref<string[]>(['ditto', 'abra', 'absol', 'aggron', 'altaria', 'bagon', 'breloom' ])
 
  const pokemons = ref<any[]>([]);
- const pokemonsExperience = ref<{ label: string, y: number, x: number }[]>([]);
+ const pokemonsExperience = ref<{ name: string, experience: number }[]>([]);
 
  onMounted(async () => {
   try {
@@ -20,9 +20,8 @@
     pokemons.value = responses.map((response) => response.data);
 
     const data = pokemons.value.map((pokemon) => ({
-      label: pokemon.name,
-      y: pokemon.base_experience,
-      x: 0
+      name: pokemon.name,
+      experience: pokemon.base_experience,
     }));
 
     pokemonsExperience.value.push(...data);
@@ -37,10 +36,10 @@
   <h1>Hello World</h1>
   <ul>
     <li v-for="pokemon in pokemonsExperience" :key="pokemon.label">
-      {{ pokemon.label }}
-      {{ pokemon.y }}
+      {{ pokemon.name }}
+      {{ pokemon.experience }}
     </li>
   </ul>
-  <Graphs />
+  <Graphs :pokemonsExperience="pokemonsExperience"/>
 </template>
 
