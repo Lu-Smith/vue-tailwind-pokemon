@@ -23,7 +23,7 @@
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [
                 {
-                    label: 'Pokemon xperience',
+                    label: 'Pokemon experience',
                     data: [12, 19, 3, 5, 2, 3],
                     backgroundColor: 'rgba(68, 179, 92, 0.6)', 
                     borderColor: 'rgba(68, 179, 92, 1)',
@@ -79,13 +79,6 @@ onMounted(() => {
 <template>
   <div>
     <h1>I am graph</h1>
-    <ul>
-      <li v-for="(pokemonData, index) in pokemonsExperience" :key="index">
-        {{ pokemonData.name }}
-        {{ pokemonData.experience }}
-      </li>
-    </ul>
-    
     <canvas ref="chartCanvas" class="w-full"></canvas>
   </div>
 </template>
