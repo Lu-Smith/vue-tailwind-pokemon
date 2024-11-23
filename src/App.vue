@@ -3,6 +3,7 @@
  import axios from 'axios';
  import { Chart, registerables } from 'chart.js';
  import Graphs from './components/Graphs.vue';
+ import Table from './components/Table.vue';
 
  const pokemonNames = ref<string[]>(['ditto', 'abra', 'absol', 'aggron', 'altaria', 'bagon', 'breloom' ])
 
@@ -40,6 +41,7 @@
       {{ pokemon.experience }}
     </li>
   </ul>
-  <Graphs :pokemonsExperience="pokemonsExperience"/>
+  <Graphs :pokemonsExperience="pokemonsExperience" />
+  <Table :pokemonsExperience="pokemonsExperience" />
 </template>
 
