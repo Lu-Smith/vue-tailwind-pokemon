@@ -2,7 +2,10 @@
   import { Chart, registerables } from 'chart.js';
   import { ref, onMounted } from 'vue';
 
-  defineProps<{ pokemonsExperience: []} >();
+  const props = defineProps<{ 
+    pokemonExperiencesData:number[],
+    pokemonNamesData: string[],
+  }>();
 
   Chart.register(...registerables);
 
@@ -20,11 +23,11 @@
     chartRef.value = new Chart(ctx, {
         type: 'bar', 
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: props.pokemonNamesData,
             datasets: [
                 {
                     label: 'Pokemon experience',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: props.pokemonExperiencesData,
                     backgroundColor: 'rgba(68, 179, 92, 0.6)', 
                     borderColor: 'rgba(68, 179, 92, 1)',
                     borderWidth: 1,
