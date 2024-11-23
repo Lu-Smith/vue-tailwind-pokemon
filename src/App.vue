@@ -1,14 +1,14 @@
 <script  setup lang="ts">
- import { ref, onMounted, nextTick  } from 'vue';
+ import { ref, onMounted } from 'vue';
  import axios from 'axios';
- import { Chart, registerables } from 'chart.js';
  import Graphs from './components/Graphs.vue';
  import Table from './components/Table.vue';
 
  const pokemonNames = ref<string[]>(['ditto', 'abra', 'absol', 'aggron', 'altaria', 'bagon', 'breloom' ])
 
- const pokemons = ref<any[]>([]);
- const pokemonsExperience = ref<{ name: string, experience: number }[]>([]);
+ const pokemonsData = ref<any[]>([]);
+ const pokemonExperiencesData = ref<number[]>([]);
+ const pokemonNamesData = ref<string[]>([]);
 
  onMounted(async () => {
   try {
@@ -18,14 +18,12 @@
       )
     );
 
-    pokemons.value = responses.map((response) => response.data);
+    pokemonsData.value = responses.map((response) => response.data);
 
-    const data = pokemons.value.map((pokemon) => ({
-      name: pokemon.name,
-      experience: pokemon.base_experience,
-    }));
+    pokemonExperiencesData.value = pokemonsData.value.map(pokemon => pokemon.base_experience);
+    pokemonNamesData.value = pokemonsData.value.map(pokemon => pokemon.name);
 
-    pokemonsExperience.value.push(...data);
+    console.log(pokemonExperiencesData.value);
 
   } catch (error) {
     console.error('Error fetching Pokémon data:', error);
@@ -35,13 +33,7 @@
 
 <template>
   <h1>Hello World</h1>
-  <ul>
-    <li v-for="pokemon in pokemonsExperience" :key="pokemon.label">
-      {{ pokemon.name }}
-      {{ pokemon.experience }}
-    </li>
-  </ul>
-  <Graphs :pokemonsExperience="pokemonsExperience" />
-  <Table :pokemonsExperience="pokemonsExperience" />
+  <Graphs :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
+  <Table :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
 </template>
 
