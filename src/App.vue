@@ -6,6 +6,7 @@
 
  const pokemons = ref<any[]>([]);
  const pokemonsExperience = ref<{ label: string; y: number }[]>([]);
+ const data = ref(null);
 
  onMounted(async () => {
   try {
@@ -22,19 +23,12 @@
         label: pokemon.name,
         y: pokemon.base_experience
       });
-      
-      console.log('Pokemons Experience:', pokemonsExperience.value);
-      console.log('First item in data:', pokemonsExperience.value[0]); 
     });
+
   } catch (error) {
     console.error('Error fetching Pokémon data:', error);
   }
 });
-
-
-console.log('Pokemons Experience:', pokemonsExperience.value);
-console.log('First item in data:', pokemonsExperience.value[0]); 
-
 
 const chart = ref(null);
 const options =  ref({
@@ -44,9 +38,10 @@ const options =  ref({
   },
   data: [{
     type: "column",
-    dataPoints: pokemonsExperience.value[0],
+    dataPoints: pokemonsExperience.value,
   }]
   });
+
 </script>
 
 <template>
