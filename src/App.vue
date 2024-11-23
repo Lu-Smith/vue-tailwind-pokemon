@@ -1,10 +1,8 @@
-<script lang="ts">
+<script  setup lang="ts">
+ import { ref } from 'vue';
 
-export default {
-data() {
-	return {
-		chart: null,
-		options: {
+  const chart = ref(null);
+	const options =  ref({
 		animationEnabled: true,
 		title:{
 			text: "Pokemons"
@@ -19,10 +17,7 @@ data() {
 			{ label: "grape",  y: 28 }
 			]
 		}]
-		}
-	}
-}
-}
+		})
 
 </script>
 
