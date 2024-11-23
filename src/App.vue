@@ -2,17 +2,24 @@
  import { ref, onMounted } from 'vue';
  import axios from 'axios';
 
- const apiUrl = 'https://pokeapi.co/api/v2/pokemon/ditto';
+ const pokemonNames = ref<string[]>(['ditto', 'abra', 'absol', 'aggron', 'altaria', 'bagon', 'breloom' ])
 
- onMounted( async () => {
+ const pokemons = ref<any[]>([]);
+
+ onMounted(async () => {
   try {
-    const response = await axios.get(apiUrl);
-    const pokemonData = response.data;
-    console.log(pokemonData);
+    const responses = await Promise.all(
+      pokemonNames.value.map((name) =>
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      )
+    );
+
+    pokemons.value = responses.map((response) => response.data);
+    console.log(pokemons.value);
   } catch (error) {
-    console.error('No pokemon data', error)
+    console.error('Error fetching Pokémon data:', error);
   }
- })
+});
 
   const chart = ref(null);
 	const options =  ref({
