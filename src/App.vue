@@ -1,12 +1,13 @@
 <script  setup lang="ts">
- import { ref, onMounted, computed, toRaw } from 'vue';
+ import { ref, onMounted, nextTick  } from 'vue';
  import axios from 'axios';
+ import { Chart, registerables } from 'chart.js';
+ import Graphs from './components/Graphs.vue';
 
  const pokemonNames = ref<string[]>(['ditto', 'abra', 'absol', 'aggron', 'altaria', 'bagon', 'breloom' ])
 
  const pokemons = ref<any[]>([]);
- const pokemonsExperience = ref<{ label: string; y: number }[]>([]);
- const data = ref(null);
+ const pokemonsExperience = ref<{ label: string, y: number, x: number }[]>([]);
 
  onMounted(async () => {
   try {
@@ -18,30 +19,18 @@
 
     pokemons.value = responses.map((response) => response.data);
 
-    pokemons.value.forEach((pokemon) => {
-      pokemonsExperience.value.push({
-        label: pokemon.name,
-        y: pokemon.base_experience
-      });
-    });
+    const data = pokemons.value.map((pokemon) => ({
+      label: pokemon.name,
+      y: pokemon.base_experience,
+      x: 0
+    }));
+
+    pokemonsExperience.value.push(...data);
 
   } catch (error) {
     console.error('Error fetching Pokémon data:', error);
   }
 });
-
-const chart = ref(null);
-const options =  ref({
-  animationEnabled: true,
-  title:{
-    text: "Pokemons Experience"
-  },
-  data: [{
-    type: "column",
-    dataPoints: pokemonsExperience.value,
-  }]
-  });
-
 </script>
 
 <template>
@@ -52,6 +41,6 @@ const options =  ref({
       {{ pokemon.y }}
     </li>
   </ul>
-  <CanvasJSChart :options="options"/>
+  <Graphs />
 </template>
 
