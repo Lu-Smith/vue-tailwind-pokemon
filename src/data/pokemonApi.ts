@@ -7,7 +7,7 @@ const pokemonsData = ref<any[]>([]);
 const pokemonExperiencesData = ref<number[]>([]);
 const pokemonNamesData = ref<string[]>([]);
 
-onMounted(async () => {
+async function fetchPokemonData() {
   try {
     const responses = await Promise.all(
       pokemonNames.value.map((name) =>
@@ -23,8 +23,8 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching Pokémon data:', error);
   }
-});
+};
 
-export { pokemonsData, pokemonExperiencesData, pokemonNamesData };
+export { pokemonsData, pokemonExperiencesData, pokemonNamesData, fetchPokemonData};
 
 
