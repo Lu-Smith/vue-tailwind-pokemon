@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { Chart, registerables } from 'chart.js';
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, watch, nextTick } from 'vue';
 
   const props = defineProps<{ 
     pokemonExperiencesData:number[],
@@ -74,9 +74,16 @@
   }
 }
 
-onMounted(() => {
-  renderChart();
-})
+watch(
+  () => [props.pokemonNamesData, props.pokemonExperiencesData],
+  async ([names, experiences]) => {
+    if (names.length && experiences.length) {
+      await nextTick(); 
+      renderChart();
+    }
+  },
+  { immediate: true, deep: true } 
+);
 </script>
 
 <template>
