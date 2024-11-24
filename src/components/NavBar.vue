@@ -6,6 +6,8 @@
     { key: '/', label: 'Home' },
     { key: '/pokemon-graphs', label: 'Pokemon Graphs' },
     { key: '/pokemon-tables', label: 'Pokemon Tables' },
+    { key: '/benchmarks-graphs', label: 'Benchmarks Graphs' },
+    { key: '/benchmarks-tables', label: 'Benchmarks Tables' },
   ]);
 </script>
 
