@@ -1,5 +1,6 @@
 import axios from "axios";
 import ProductBenchmarks from '../assets/interfaces';
+import ExchangeRates from '../assets/interfaces';
 
 const BASE_URL_BENCHMARKS = 'https://substantive.pythonanywhere.com';
 const API_KEY_BENCHMARKS = '590e3e17b6a26a8fcda726e2a91520e476e2c894';
@@ -18,7 +19,13 @@ const getProductBenchmarks = async () => {
   return response.data;
 }
 
-export {getProductBenchmarks};
+const getExchangeRates = async () => {
+  const response = await apiBenchmarks.get<{exchange_rates: ExchangeRates[]}>('exchange_rates');
+  console.log(response.data);
+  return response.data;
+}
+
+export {getProductBenchmarks, getExchangeRates};
 
 
 
