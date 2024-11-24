@@ -32,8 +32,10 @@
 </script>
 
 <template>
-  <h1>Hello World</h1>
-  <Graphs :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
-  <Table :pokemonsData="pokemonsData" />
+  <div class="p-4 text-center flex justify-center flex-col items-center">
+    <h1 class="font-bold mb-5">Hello World</h1>
+    <Graphs :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
+    <Table :pokemonsData="pokemonsData" />
+  </div>
 </template>
 

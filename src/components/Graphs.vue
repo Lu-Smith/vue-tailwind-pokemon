@@ -12,6 +12,12 @@
   const chartRef = ref<Chart | null>(null); 
   const chartCanvas = ref<HTMLCanvasElement | null>(null);
 
+  const borderColors = ref<string[]>([]);
+
+  function generateHslColor(hue: number, saturation: number, lightness: number): string {
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
   function renderChart() {
   // Destroy the previous chart 
   if (chartRef.value) {
@@ -28,8 +34,8 @@
                 {
                     label: 'Pokemon experience',
                     data: props.pokemonExperiencesData,
-                    backgroundColor: 'rgba(68, 179, 92, 0.6)', 
-                    borderColor: 'rgba(68, 179, 92, 1)',
+                    backgroundColor: borderColors.value,  
+                    borderColor:  borderColors.value, 
                     borderWidth: 1,
                     type: 'bar',
                 },
@@ -78,6 +84,9 @@ watch(
   () => [props.pokemonNamesData, props.pokemonExperiencesData],
   async ([names, experiences]) => {
     if (names.length && experiences.length) {
+      borderColors.value = names.map((_, index) => 
+        generateHslColor(index * 40, 70, 50)
+      );
       await nextTick(); 
       renderChart();
     }
@@ -87,8 +96,8 @@ watch(
 </script>
 
 <template>
-  <div>
     <h1>I am graph</h1>
-    <canvas ref="chartCanvas" class="w-full"></canvas>
-  </div>
+    <div class="w-full max-w-[800px] mx-auto">
+      <canvas ref="chartCanvas" class="w-full"></canvas>
+    </div>
 </template>
