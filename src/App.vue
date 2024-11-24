@@ -23,17 +23,17 @@
     pokemonExperiencesData.value = pokemonsData.value.map(pokemon => pokemon.base_experience);
     pokemonNamesData.value = pokemonsData.value.map(pokemon => pokemon.name);
 
-    console.log(pokemonExperiencesData.value);
-
   } catch (error) {
     console.error('Error fetching Pokémon data:', error);
   }
 });
+
+
 </script>
 
 <template>
   <h1>Hello World</h1>
   <Graphs :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
-  <Table :pokemonExperiencesData="pokemonExperiencesData" :pokemonNamesData="pokemonNamesData" />
+  <Table :pokemonsData="pokemonsData" />
 </template>
 
