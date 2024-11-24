@@ -2,8 +2,7 @@
   import { ref } from 'vue';
 
   const props = defineProps<{ 
-    pokemonExperiencesData: string[],
-    pokemonNamesData: number[],
+    pokemonsData : any[]
   }>();
 
 </script>
@@ -15,15 +14,23 @@
       <tr>
         <th>Name</th>
         <th>Experience</th>
+        <th>Height</th>
+        <th>Weight</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(name, index) in props.pokemonNamesData" :key="index">
+      <tr v-for="(pokemon, index) in props.pokemonsData" :key="index">
         <td>
-          {{ name }}
+          {{ pokemon.name }}
         </td>
         <td>
-          {{ props.pokemonExperiencesData[index] || 'N/A' }}
+          {{ pokemon.base_experience }}
+        </td>
+        <td>
+          {{ pokemon.height }}
+        </td>
+        <td>
+          {{ pokemon.weight }}
         </td>
       </tr>
     </tbody>
