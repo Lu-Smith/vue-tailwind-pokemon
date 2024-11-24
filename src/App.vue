@@ -3,12 +3,15 @@
   import NavBar from './components/NavBar.vue';
   import { RouterView } from 'vue-router';
   import { fetchPokemonData } from './data/pokemonApi';
-import { productBenchmarks } from './data/benchmarksApi';
 
-  onMounted(() =>{
-    fetchPokemonData();
-    productBenchmarks();
+  onMounted(async () => {
+    try{
+      await fetchPokemonData();
+    } catch(error) {
+      console.error('Failed to catch data:', error);
+    }
   });
+  
 </script>
 
 <template>
