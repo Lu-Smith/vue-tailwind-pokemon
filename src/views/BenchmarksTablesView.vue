@@ -4,7 +4,7 @@
   import ProductBenchmarks from '../assets/interfaces';
 
   const headTitles = ref(['ID', 'Provider Name', 'Provider Name', 
-  'Benchmark', 'Payment', 'Date', 'Period Length']);
+  'Benchmark (€)', 'Payment (€)', 'Date']);
  
   const benchmarksData = ref<ProductBenchmarks[]>([]);
 
@@ -16,6 +16,15 @@
       const {id, provider_name, product_name, 
         currency, benchmark: benchmarkValue, payment, 
         start_date, end_date} = benchmark;
+
+        let convertedPayment = payment;
+        let convertedBenchmark = benchmarkValue;
+        let rate = 1;
+
+      if (currency.name !== 'EUR') {
+        convertedBenchmark = benchmarkValue * rate;
+        convertedPayment = payment * rate;
+      }
 
       newBenchmarks.push({
       id,
